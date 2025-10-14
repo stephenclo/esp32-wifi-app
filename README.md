@@ -21,7 +21,7 @@ Libraries (auto-installed via PlatformIO):
 ## 🧩Setup
 
 Clone this repository
-* `git clone https://github.com/yourusername/esp32-wifi-app.git`
+* `git clone https://github.com//stephenclo/esp32-wifi-appp.git`
 * `cd esp32-wifi-app`
 
 Upload the filesystem
