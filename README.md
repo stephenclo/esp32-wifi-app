@@ -15,8 +15,8 @@ PlatformIO
 ESP32 board (e.g. ESP32 DevKit, WROVER, WROOM, etc.)
 Libraries (auto-installed via PlatformIO):
 * tzapu/WiFiManager
-* mathieucarbou/ESP Async WebServer
-* mathieucarbou/AsyncTCP
+* WebServer
+* littlefs
 
 ## 🧩Setup
 
