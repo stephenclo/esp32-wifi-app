@@ -1,0 +1,230 @@
+:root{
+  --nav-height: 60px; /* hauteur visible de la navigation */
+  --nav-pad-bottom: calc(var(--nav-height) + 15px);
+  --primary-color-base: #004f4f;
+  --primary-color-light: #00dddd;
+  --primary-color-dark: #101414;
+  
+  --alert-color-base: #8e2c2e;
+  --alert-color-light: #ffb4ab;
+  --alert-color-dark: #4e0004;
+
+  /* WiFiManager primary color */
+  --primarycolor:#00dddd;
+}
+
+/* Style global (inchangé sauf hauteur totale) */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: var(--primary-color-dark);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.wrap {
+  text-align: center;
+  padding: 15px;
+}
+
+/* En-tête */
+.app-header {
+  background-color: var(--primary-color-dark);
+  color: var(--primary-color-light);
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.app-header .logo, .bottom-nav .picto {
+  filter: brightness(0) saturate(100%) invert(63%) sepia(82%) saturate(1087%) hue-rotate(129deg) brightness(97%) contrast(101%);
+}
+
+.bottom-nav .nav-btn.selected .picto {
+  filter: brightness(1000%) contrast(100%);
+}
+
+.bottom-nav .nav-btn.selected {
+  color: white;
+  font-weight: bold;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+}
+
+.app-header h1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Contenu principal
+   on réserve un padding-bottom égal à la hauteur de la nav (plus safe area)
+*/
+.main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 12px;
+  padding: 15px;
+  padding-bottom: var(--nav-pad-bottom); /* <-- important */
+  box-sizing: border-box;
+  overflow-y: auto;
+   grid-auto-flow: row;
+}
+
+/* Tuiles */
+.tile {
+  background-color: var(--primary-color-base);
+  border-radius: 15px;
+  text-align: center;
+  padding: 20px;
+}
+
+.tile h2 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--primary-color-light);
+}
+
+.tile p {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Navigation inférieure */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height); /* utiliser la variable */
+  background-color: var(--primary-color-base);
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+  z-index: 1000; 
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* bouton nav */
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color-light);;
+  text-align: center;
+  flex: 1;
+  font-size: 0.8rem;
+  padding: 4px 6px;
+  text-decoration: none;
+}
+
+.nav-btn .icon {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.nav-btn:active {
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 10px;
+}
+
+/* Style de base pour tous les boutons */
+button {
+  background-color: var(--primary-color-light); /* couleur principale */
+  color: var(--primary-color-base);
+  border: 3px solid var(--primary-color-light);
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 20px; 
+  font-size: 16px; 
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease; 
+}
+button.action-button:hover, .wrap button:hover {
+  color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
+}
+
+button.action-button:active, .wrap button:active {
+  color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
+  transform: translateY(3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wrap button {
+  margin: 0px;
+}
+
+.wrap button.D {
+  background-color: var(--alert-color-light);
+  color: var(--alert-color-base);
+  border: 3px solid var(--alert-color-light);
+}
+
+.wrap a {
+  color: white;
+}
+
+.wrap div[role="img"] {
+  filter: invert(1);
+  mask-mode: luminance;
+  -webkit-mask-mode: luminance;
+}
+
+.msg.D {
+    border-left-color: var(--alert-color-base);;
+}
+.msg.D h4 {
+    color: var(--alert-color-base);;
+}
+
+/* Style de base pour tous les boutons */
+input {
+  color: var(--primary-color-dark);
+  border: 3px solid var(--primary-color-light);
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Effet au survol */
+input:hover {
+  color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
+}
+
+/* Effet au focus */
+input:focus {
+  color: var(--primary-color-dark); 
+  border-color: var(--primary-color-dark);
+}
+
+input:focus-visible {
+  color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
+  outline-color: var(--primary-color-dark);
+  outline-style: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tile h2 { font-size: 0.9rem; }
+  .tile p { font-size: 1.2rem; }
+}

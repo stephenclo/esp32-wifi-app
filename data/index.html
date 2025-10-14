@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Project</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+  <!-- En-tête -->
+  <header class="app-header" id="app-header">
+    <img src="images/memory.svg" alt="Logo" class="logo">
+    <h1>My Project</h1>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="main-content">
+    <div class="tile">
+      <h2>Arrossage</h2>
+      <span>
+        Temps d'arrosage <input type="number" style="width: 80px;" /> min
+      </span>
+      <p>
+        <button onclick="arroser()" class="action-button">Arroser</button>
+      </p>
+    </div>
+    <div class="tile">
+      <h2>Etat de la terre</h2>
+      <p>Trop sèche</p>
+    </div>
+  </main>
+
+  <!-- Navigation -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <a class="nav-btn selected" href="index.html">
+      <span class="icon"><img src="images/home.svg" alt="home" class="picto"></span>
+      <span class="label">Accueil</span>
+    </a>
+    <a class="nav-btn" href="settings.html">
+      <span class="icon"><img src="images/settings.svg" alt="settings" class="picto"></span>
+      <span class="label">Réglages</span>
+    </a>
+    <a class="nav-btn" href="data.html">
+      <span class="icon"><img src="images/mystery.svg" alt="data" class="picto"></span>
+      <span class="label">Data</span>
+    </a>
+    <a class="nav-btn" href="info.html">
+      <span class="icon"><img src="images/info.svg" alt="info" class="picto"></span>
+      <span class="label">Info</span>
+    </a>
+  </nav>
+  <script src="script.js"></script>
+</body>
+</html>
