@@ -1,16 +1,15 @@
-
-
 #include <Arduino.h>
-#include <LittleFS.h> // Librairie du system de fichier
-
+#include "LittleFS.h"
 #include "WiFiController.h"
 #include "WebServerController.h"
+#include "RandomSensorController.h"
 
 // Change Project Name, Access Point SSID  
 String projectName = "My Project";
 
 WiFiController wiFiController;
 WebServerController webServerController;
+RandomSensorController randomSensorController;
 
 void setup() {
   Serial.print("🚀 Project launch");
@@ -36,4 +35,9 @@ void setup() {
 void loop() {
   // Listen for and respond to web requests
   webServerController.handleClient();
+
+  randomSensorController.readSensorLoop();
+  
+  // Attendre 1 seconde avant la prochaine lecture
+  delay(1000);
 }

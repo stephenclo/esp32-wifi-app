@@ -6,6 +6,7 @@ A ready-to-use ESP32 boilerplate project including:
 * Wi-Fi configuration via access point using tzapu/WiFiManager
 * A built-in web server serving a web interface to:
   - Display ESP32 and sensor information
+  - Light data circular storage
   - Trigger actions in the Arduino code directly from the browser
 * LittleFS integration for managing and serving HTML, CSS, and JavaScript files separately from the Arduino source.
 
@@ -60,7 +61,7 @@ Example routes:
 
 You can add:
 * Custom routes (e.g. /api/sensor)
-* Dynamic HTML elements or AJAX calls
+* Custom sensor controller based on RandomSensorController class
 * Your own HTML, CSS, JS and images under `/data/` (or modify existing)
 
 Then run `pio run --target uploadfs` to re-upload the web files.
@@ -69,6 +70,7 @@ Then run `pio run --target uploadfs` to re-upload the web files.
 
 * Storage : Data recording 
 * Simple Data viz
+* Real data on web interface 
 
 ## 📝 License
 
