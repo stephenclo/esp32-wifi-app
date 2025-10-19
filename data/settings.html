@@ -45,6 +45,12 @@
       <span class="label">Info</span>
     </a>
   </nav>
-  <script src="script.js"></script>
+  <script>
+    function resetWifi() {
+      if (confirm("Es-tu sûr de vouloir réinitialiser les paramètres WiFi ?")) {
+        fetch("/reset-wifi");
+      }
+    }
+  </script>
 </body>
 </html>

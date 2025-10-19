@@ -1,6 +1,6 @@
 #include "WebServerController.h"
 
-// Constructeur : initialise le serveur sur le port donné
+// Constructor
 WebServerController::WebServerController(int port)
   : _server(port) {}
   
@@ -8,7 +8,7 @@ WebServerController::WebServerController(int port)
 void WebServerController::handleFile(String path) {
   
   Serial.println("handleFile" + path);
-  if (path.endsWith("/")) path += "index.html"; // page par défaut
+  if (path.endsWith("/")) path += "index.html"; // default page
 
   String contentType = "text/plain";
   if (path.endsWith(".html")) contentType = "text/html";
@@ -29,28 +29,54 @@ void WebServerController::handleFile(String path) {
   }
 }
 
-// Fonction pour réinitialiser les paramètre wifi via le serveur web
+// Function to reset wifi settings via web server
 void WebServerController::handleResetWifi() {
   _server.send(200, "text/html", "Reset Wifi");
   _wiFiController.resetSettings();
 }
 
-// Fonction pour servir la page web
+// Function to serve the web page
 void WebServerController::handleIsConnected() {
   _server.send(200, "text/html", _wiFiController.isConnected() ? "true" : "false");
 }
 
-// Démarre le serveur et configure les routes
+void WebServerController::handleSensorValues() {
+    // Get vector of 5 last sensor values
+    std::array<float, 5> data = _randomSensorController.getSensorValues();
+
+    // Create the JSON document
+    // Allocate memory for the JSON document statically (size to be adjusted)
+    StaticJsonDocument<256> doc; 
+    
+    // Create JSON Array from Vector C++
+    JsonArray array = doc.to<JsonArray>();
+
+    for (const float& value : data) {
+      array.add(value);
+    }
+
+    // Serialize the document to a String
+    String output;
+    serializeJson(doc, output);
+
+    // Response
+    _server.send(200, "application/json", output);
+}
+
+// Start the server and configure the routes
 void WebServerController::begin() {
   Serial.println("🚀 Initialisation du serveur web...");
 
-  // Route is-connected
+  // is-connected route
   _server.on("/is-connected", std::bind(&WebServerController::handleIsConnected, this));
 
-  // Route reset-wifi
+  // reset-wifi route
   _server.on("/reset-wifi", std::bind(&WebServerController::handleResetWifi, this));
 
-  // Route générique
+  // reset-wifi route
+  _server.on("/sensor-values", std::bind(&WebServerController::handleSensorValues, this));
+
+  // Generic route
   _server.onNotFound([this]() {
     this->handleFile(this->_server.uri());
   });
@@ -59,7 +85,7 @@ void WebServerController::begin() {
   Serial.println("✅ Serveur web démarré !");
 }
 
-// Doit être appelée régulièrement dans loop()
+// Must be called regularly in loop()
 void WebServerController::handleClient() {
   _server.handleClient();
 }

@@ -1,10 +1,12 @@
 #pragma once
 #include <Arduino.h>
+#include <ArduinoJson.h>
 
 #include <WebServer.h>
 #include <LittleFS.h>
 
 #include "WiFiController.h"
+#include "RandomSensorController.h"
 
 class WebServerController {
     public:
@@ -22,6 +24,7 @@ class WebServerController {
     private:
         WebServer _server;
         WiFiController _wiFiController;
+        RandomSensorController _randomSensorController;
 
         // Serve web app files through the web server
         void handleFile(String path);
@@ -31,4 +34,7 @@ class WebServerController {
 
         // Serve get data isConnected  
         void handleIsConnected();
+
+        // Serve sensor values history 
+        void handleSensorValues();
 };

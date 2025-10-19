@@ -38,6 +38,6 @@ void loop() {
 
   randomSensorController.readSensorLoop();
   
-  // Attendre 1 seconde avant la prochaine lecture
+  // Wait 1 second before next reading
   delay(1000);
 }

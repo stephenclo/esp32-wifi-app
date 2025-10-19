@@ -1,106 +1,105 @@
 #include "RandomSensorController.h"
 
-const char* LOG_FILE_OLD = "/sensor-history-old.csv";
-const char* LOG_FILE_ACTIVE = "/sensor-history-active.csv";
+const char* NVS_NAMESPACE = "TEMP_DATA"; 
+const char* NVS_KEY_1 = "TEMP_1";
+const char* NVS_KEY_2 = "TEMP_2";
+const char* NVS_KEY_3 = "TEMP_3";
+const char* NVS_KEY_4 = "TEMP_4";
+const char* NVS_KEY_5 = "TEMP_5";
 
-// Taille maximale du journal glissant : 
-// Ex: 100 KB. (Augmentez à 1024 * 1024 pour 1 Mo)
-// 512 KB pour les 2 fichiers
-const long MAX_LOG_SIZE = 256 * 1024;
+// 1 hour in milliseconds: 1 hour * 60 min * 60 sec * 1000 ms = 3,600,000 ms
+// Using 'UL' (unsigned long) is crucial to ensure proper handling of large numbers.
+const unsigned long READ_INTERVAL = 10000UL; 
 
-// 1 heure en millisecondes : 1 heure * 60 min * 60 sec * 1000 ms = 3 600 000 ms
-// Utiliser 'UL' (unsigned long) est crucial pour garantir la bonne gestion des grands nombres.
-const unsigned long READ_INTERVAL = 5000UL; 
-
-// Variable pour stocker le dernier moment où l'action a été exécutée
+// Variable to store the last time the action was executed
 unsigned long _lastActionTime = 0;
 
-// Fonction pour simuler la lecture d'un capteur (à remplacer par votre code réel)
+// Simulate sensor reading (replace with your actual code)
 float RandomSensorController::readSensorValue() {
-  // Simule une lecture de température entre 20.0 et 30.0
+  // Simulates a temperature reading between 20.0 and 30.0
   return random(200, 300) / 10.0;
 }
 
-// Fonction principale pour enregistrer l'entrée
-void RandomSensorController::appendCircularLog(const char* data) {
-  // 1. Ouvrir le fichier en mode "a+" (ajout et création si n'existe pas)
-  File logFile = LittleFS.open(LOG_FILE_ACTIVE, "a+"); 
-  
-  if (!logFile) {
-    Serial.println("ERREUR: Échec de l'ouverture du fichier de log.");
+// Main function to record last sensor values input on NVS
+// Keep 5 last sensor values
+void RandomSensorController::saveLastSensorValue(float value) {
+  nvs_handle_t storageHandle;
+  esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READWRITE, &storageHandle);
+
+  if (err != ESP_OK) {
+    Serial.printf("Erreur d'ouverture NVS: %s\n", esp_err_to_name(err));
     return;
   }
-    
-  // 2. Vérification de la taille actuelle
-  if (logFile.size() >= MAX_LOG_SIZE) {
-    Serial.printf("LOG CIRCULAIRE: Taille max (%ld octets) atteinte.\n", MAX_LOG_SIZE);
-    
-    // Fermer le fichier
-    logFile.close();
-    
-    // Supprimer l'ancien fichier (pour réinitialiser le journal)
-    LittleFS.remove(LOG_FILE_OLD); 
-    Serial.println("LOG CIRCULAIRE: Ancien fichier supprimé.");
 
-    // Renommage du fichier actif qui devient l'ancien fichier.
-    LittleFS.rename(LOG_FILE_ACTIVE, LOG_FILE_OLD);
-    
-    logFile = LittleFS.open(LOG_FILE_ACTIVE, "a+");
-    if (!logFile) return; // Vérification rapide
-  } 
+  int32_t value1 = 0;
+  int32_t value2 = 0;
+  int32_t value3 = 0;
+  int32_t value4 = 0;
 
-  // 3. Écriture de la nouvelle entrée
-  logFile.print(data);
+  int32_t newValue = (int32_t)(value * 10);
+  nvs_get_i32(storageHandle, NVS_KEY_1, &value1);
+  nvs_get_i32(storageHandle, NVS_KEY_2, &value2);
+  nvs_get_i32(storageHandle, NVS_KEY_3, &value3);
+  nvs_get_i32(storageHandle, NVS_KEY_4, &value4);
 
-  // 4. Fermer le fichier
-  logFile.close();
+  // Reorganizes storage to keep the last 5 values
+  err = nvs_set_i32(storageHandle, NVS_KEY_1, newValue);
+  err = nvs_set_i32(storageHandle, NVS_KEY_2, value1);
+  err = nvs_set_i32(storageHandle, NVS_KEY_3, value2);
+  err = nvs_set_i32(storageHandle, NVS_KEY_4, value3);
+  err = nvs_set_i32(storageHandle, NVS_KEY_5, value4);
+
+  if (err == ESP_OK) {
+    // Commit the changes to save them in NVS
+    err = nvs_commit(storageHandle);
+    if (err == ESP_OK) {
+      Serial.printf("Valeur %.2f enregistree avec succes.\n", value);
+    }
+  }
+
+  nvs_close(storageHandle);
 }
 
-// Fonction d'affichage du journal (pour le débogage)
-void RandomSensorController::printLogFile() {
-  File logFileActive = LittleFS.open(LOG_FILE_ACTIVE, "r");
-  if (!logFileActive) {
-    Serial.println("Le fichier de log actif n'existe pas ou est vide.");
-    return;
-  }
+std::array<float, 5> RandomSensorController::getSensorValues() {
+  int32_t value1 = 0;
+  int32_t value2 = 0;
+  int32_t value3 = 0;
+  int32_t value4 = 0;
+  int32_t value5 = 0;
+  
+  std::array<float, 5> temperatures;
 
-  Serial.println("\nContenu du Log actif");
-  while (logFileActive.available()) {
-    Serial.write(logFileActive.read());
-  }
-  logFileActive.close();
+  nvs_handle_t storageHandle;
+  nvs_open(NVS_NAMESPACE, NVS_READONLY, &storageHandle);
+  
+  nvs_get_i32(storageHandle, NVS_KEY_1, &value1);
+  nvs_get_i32(storageHandle, NVS_KEY_2, &value2);
+  nvs_get_i32(storageHandle, NVS_KEY_3, &value3);
+  nvs_get_i32(storageHandle, NVS_KEY_4, &value4);
+  nvs_get_i32(storageHandle, NVS_KEY_5, &value5);
+  
+  nvs_close(storageHandle);
 
-  File logFileOld = LittleFS.open(LOG_FILE_OLD, "r");
-  if (!logFileOld) {
-    Serial.println("Le fichier de log archivé n'existe pas ou est vide.");
-    return;
-  }
-
-  Serial.println("\nContenu du Log archivé");
-  while (logFileOld.available()) {
-    Serial.write(logFileOld.read());
-  }
-  logFileOld.close();
+  temperatures[0] = float(value1) / 10;
+  temperatures[1] = float(value2) / 10;
+  temperatures[2] = float(value3) / 10;
+  temperatures[3] = float(value4) / 10;
+  temperatures[4] = float(value5) / 10;
+ 
+  return temperatures; 
 }
 
 void RandomSensorController::readSensorLoop() {
+  unsigned long now = millis();
 
-  unsigned long tempsActuel = millis();
+  // Check if the time since the last action is >= the playback interval
+  if (now - _lastActionTime >= READ_INTERVAL) {
+    _lastActionTime = now;
 
-  // Vérifier si le temps écoulé depuis la dernière action est >= à l'intervalle de lecture
-  if (tempsActuel - _lastActionTime >= READ_INTERVAL) {
-    _lastActionTime = tempsActuel;
-
-    // 1. Lire les données du capteur
+    // Reads sensor data
     float temperature = readSensorValue();
-    unsigned long timestamp = millis() / 1000; // Temps écoulé en secondes
-
-    // 2. Préparer l'entrée CSV
-    String logEntry = String(timestamp) + "," + String(temperature, 1) + "\n";
     
-    // 3. Enregistrer de façon circulaire
-    appendCircularLog(logEntry.c_str());
-    
-    Serial.printf("Enregistré: %s", logEntry.c_str());
+    // Records last value
+    saveLastSensorValue(temperature);
   }
 }
