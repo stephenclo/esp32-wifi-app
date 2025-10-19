@@ -45,9 +45,8 @@ void WebServerController::handleSensorValues() {
     std::array<float, 5> data = _randomSensorController.getSensorValues();
 
     // Create the JSON document
-    // Allocate memory for the JSON document statically (size to be adjusted)
-    StaticJsonDocument<256> doc; 
-    
+    JsonDocument doc;
+
     // Create JSON Array from Vector C++
     JsonArray array = doc.to<JsonArray>();
 
