@@ -1,23 +1,34 @@
 :root {
   --nav-height: 60px;
   --nav-pad-bottom: calc(var(--nav-height) + 15px);
+  
+  --background-color: black;
+  --foreground-color: white;
+  
   --primary-color-base: #004f4f;
   --primary-color-light: #00dddd;
   --primary-color-dark: #101414;
-
+  
   --alert-color-base: #8e2c2e;
   --alert-color-light: #ffb4ab;
   --alert-color-dark: #4e0004;
 
+  --filter-background-color: brightness(0%);
+  --filter-foreground-color: brightness(1000%) contrast(100%);
+
+  --filter-primary-color-base: brightness(0) saturate(100%) invert(63%) sepia(82%) saturate(1087%) hue-rotate(129deg) brightness(97%) contrast(101%);
+  --filter-primary-color-light: brightness(0) saturate(100%) invert(65%) sepia(12%) saturate(7465%) hue-rotate(135deg) brightness(104%) contrast(101%);
+  --filter-primary-color-dark: brightness(0) saturate(100%) invert(4%) sepia(4%) saturate(3090%) hue-rotate(131deg) brightness(99%) contrast(92%);
+  
   /* WiFiManager primary color */
-  --primarycolor: #00dddd;
+  --primarycolor: var(--primary-color-base);
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  background-color: var(--primary-color-dark);
-  color: white;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -40,26 +51,25 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.app-header .logo
+.app-header .logo,
+.bottom-nav .nav-btn .picto
 {
-  /* base primary color */
-  filter: brightness(0) saturate(100%) invert(63%) sepia(82%) saturate(1087%) hue-rotate(129deg) brightness(97%) contrast(101%);
+  filter: var(--filter-primary-color-base);
 }
 
-.fab-button .picto
+.fab-button .icon .picto
 {
-  /* dark primary color */
-  filter: brightness(0) saturate(100%) invert(4%) sepia(4%) saturate(3090%) hue-rotate(131deg) brightness(99%) contrast(92%);
+  filter: var(--filter-primary-color-dark);
   vertical-align: middle;
 }
 
-.bottom-nav .nav-btn.selected .picto {
-  filter: brightness(1000%) contrast(100%);
+.bottom-nav .nav-btn.selected {
+  color: var(--foreground-color);
+  font-weight: bold;
 }
 
-.bottom-nav .nav-btn.selected {
-  color: white;
-  font-weight: bold;
+.bottom-nav .nav-btn.selected .picto {
+  filter: var(--filter-foreground-color);;
 }
 
 .logo {
@@ -162,8 +172,10 @@ button.full-width {
 
 button.fab-button {
   position: absolute;
-  border-radius: 999px;
-  top: var(--nav-height);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  top: calc(var(--nav-height) + 10px);
   right: 15px;
   line-height: 2rem;
 }
@@ -195,7 +207,7 @@ button.fab-button:active,
 }
 
 .wrap a {
-  color: white;
+  color: var(--foreground-color);
 }
 
 .wrap div[role="img"] {
@@ -259,7 +271,7 @@ input:focus-visible {
 
 .chip.dark {
   background: var(--primary-color-dark);;
-  color: white;
+  color: var(--foreground-color);
 }
 
 /* Responsive */
