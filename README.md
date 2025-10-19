@@ -2,7 +2,7 @@
 
 ## 💡 Description
 
-A ready-to-use ESP32 boilerplate project including:
+A ready-to-use ESP32 boilerplate for IoT projects including:
 * Wi-Fi configuration via access point using tzapu/WiFiManager
 * A built-in web server serving a web interface to:
   - Display ESP32 and sensor information
@@ -12,12 +12,12 @@ A ready-to-use ESP32 boilerplate project including:
 
 ## ⚙️ Requirements
 
-PlatformIO
-ESP32 board (e.g. ESP32 DevKit, WROVER, WROOM, etc.)
-Libraries (auto-installed via PlatformIO):
-* tzapu/WiFiManager
-* WebServer
-* littlefs
+* PlatformIO
+* ESP32 board (e.g. ESP32 DevKit, WROVER, WROOM, etc.)
+* Libraries (auto-installed via PlatformIO):
+  * tzapu/WiFiManager
+  * WebServer
+  * littlefs
 
 ## 🧩Setup
 
@@ -46,7 +46,7 @@ The source files are placed in the LittleFSrepertory `/data`.
 Example routes:
 | Path | Description |
 |--|--|
-| / | Main interface (HTML UI) |
+| / | Main interface (web app UI) |
 | /is-connected |	Returns ESP32 WiFi connection state |
 | /reset-wifi | Executes an action in code to reset WiFi settings |
 
