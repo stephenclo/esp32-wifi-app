@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Project</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="data.css" />
 </head>
 <body>
   <header class="app-header" id="app-header">
@@ -14,15 +15,20 @@
 
   <main class="main-content">
     <div class="tile">
-      <h2>Température</h2>
-        <h3 id="sensor-average-value">-°</h3>
-        <ul>
-          <li id="sensor-value-1"></li>
-          <li id="sensor-value-2"></li>
-          <li id="sensor-value-3"></li>
-          <li id="sensor-value-4"></li>
-          <li id="sensor-value-5"></li>
-        </ul>
+      <h2>Température moyenne</h2>
+      <h3 id="sensor-average-value">-°</h3>
+      
+      <h2>Evolution</h2>
+        <p class="chips">
+          <span class="chip" id="sensor-value-1"></span>
+          <span class="chip" id="sensor-value-2"></span>
+          <span class="chip" id="sensor-value-3"></span>
+          <span class="chip" id="sensor-value-4"></span>
+          <span class="chip" id="sensor-value-5"></span>
+        </p>
+        <div class="graph">
+          <svg id="chart" viewBox="0 0 600 300"></svg>
+        </div>
         <button onclick="getSensorValues()"  class="action-button">refresh</button>
     </div>
     <div class="tile">
@@ -61,54 +67,6 @@
       <span class="label">Info</span>
     </a>
   </nav>
-  <script>
-    // Example of a periodic update
-    function subscribeIsConnected() {
-      const intervalIsConnected = setInterval(async() => {
-        let value = "loding...";
-        try {
-          const res = await fetch("/is-connected");
-          
-          if (!res.ok) {
-              throw new Error(`HTTP error! status: ${res.status}`);
-          }
-
-          value = await res.text();
-        } catch (err) {
-          value = "False";
-          clearInterval(intervalIsConnected);
-        }
-
-        document.getElementById("is-connected-value").textContent = value;
-        }, 15000);
-    }
-
-    async function getSensorValues() {      
-      let value = '-°';
-
-      try {
-        const res = await fetch("/sensor-values");
-        
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-
-        const values = await res.json();
-        
-        value = ((values[0] + values[1] + values[2] + values[3] + values[4]) / 5) + '°';      
-        document.getElementById('sensor-average-value').textContent = value;
-        document.getElementById('sensor-value-1').textContent = values[0];
-        document.getElementById('sensor-value-2').textContent = values[1];
-        document.getElementById('sensor-value-3').textContent = values[2];
-        document.getElementById('sensor-value-4').textContent = values[3];
-        document.getElementById('sensor-value-5').textContent = values[4];
-
-      } catch (err) {
-        value = 'error';
-      }
-    }
-
-    getSensorValues();
-  </script>
+  <script src="data.js"></script>
 </body>
 </html>

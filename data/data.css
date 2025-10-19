@@ -1,0 +1,32 @@
+.graph svg {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.graph svg {
+  width: 100%;
+}
+
+.graph .axis {
+  stroke: var(--primary-color-light);
+  stroke-width: 3;
+}
+
+.graph .line {
+  fill: none;
+  stroke: var(--primary-color-light);
+  stroke-width: 5;
+}
+
+.graph .point {
+  fill: white;
+  stroke: white;
+  stroke-width: 1.5;
+  r: 4;
+}
+
+.graph .label {
+  font-size: 1.5rem;
+  fill: var(--primary-color-light);;
+  dominant-baseline: central;
+}

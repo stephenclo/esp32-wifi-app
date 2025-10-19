@@ -68,9 +68,7 @@ Then run `pio run --target uploadfs` to re-upload the web files.
 
 ## 📋 TODO
 
-* Storage : Data recording 
 * Simple Data viz
-* Real data on web interface 
 
 ## 📝 License
 

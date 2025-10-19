@@ -1,19 +1,18 @@
-:root{
-  --nav-height: 60px; /* hauteur visible de la navigation */
+:root {
+  --nav-height: 60px;
   --nav-pad-bottom: calc(var(--nav-height) + 15px);
   --primary-color-base: #004f4f;
   --primary-color-light: #00dddd;
   --primary-color-dark: #101414;
-  
+
   --alert-color-base: #8e2c2e;
   --alert-color-light: #ffb4ab;
   --alert-color-dark: #4e0004;
 
   /* WiFiManager primary color */
-  --primarycolor:#00dddd;
+  --primarycolor: #00dddd;
 }
 
-/* Style global (inchangé sauf hauteur totale) */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -29,7 +28,6 @@ body {
   padding: 15px;
 }
 
-/* En-tête */
 .app-header {
   background-color: var(--primary-color-dark);
   color: var(--primary-color-light);
@@ -39,10 +37,11 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.app-header .logo, .bottom-nav .picto {
+.app-header .logo,
+.bottom-nav .picto {
   filter: brightness(0) saturate(100%) invert(63%) sepia(82%) saturate(1087%) hue-rotate(129deg) brightness(97%) contrast(101%);
 }
 
@@ -65,22 +64,18 @@ body {
   margin-bottom: 10px;
 }
 
-/* Contenu principal
-   on réserve un padding-bottom égal à la hauteur de la nav (plus safe area)
-*/
 .main-content {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 12px;
   padding: 15px;
-  padding-bottom: var(--nav-pad-bottom); /* <-- important */
+  padding-bottom: var(--nav-pad-bottom);
   box-sizing: border-box;
   overflow-y: auto;
-   grid-auto-flow: row;
+  grid-auto-flow: row;
 }
 
-/* Tuiles */
 .tile {
   background-color: var(--primary-color-base);
   border-radius: 15px;
@@ -94,35 +89,34 @@ body {
   color: var(--primary-color-light);
 }
 
-.tile p {
+.tile p .text {
   font-size: 1.4rem;
   margin: 0;
   font-weight: bold;
 }
 
-/* Navigation inférieure */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--nav-height); /* utiliser la variable */
+  height: var(--nav-height);
   background-color: var(--primary-color-base);
   display: flex;
   justify-content: space-around;
   padding: 0;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
-  z-index: 1000; 
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
   padding-bottom: env(safe-area-inset-bottom);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-/* bouton nav */
 .nav-btn {
   background: none;
   border: none;
-  color: var(--primary-color-light);;
+  color: var(--primary-color-light);
+  ;
   text-align: center;
   flex: 1;
   font-size: 0.8rem;
@@ -136,30 +130,32 @@ body {
 }
 
 .nav-btn:active {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 
-/* Style de base pour tous les boutons */
 button {
-  background-color: var(--primary-color-light); /* couleur principale */
+  background-color: var(--primary-color-light);
   color: var(--primary-color-base);
   border: 3px solid var(--primary-color-light);
   padding: 10px 20px;
   margin: 5px;
-  border-radius: 20px; 
-  font-size: 16px; 
+  border-radius: 20px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
-button.action-button:hover, .wrap button:hover {
+
+button.action-button:hover,
+.wrap button:hover {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
 }
 
-button.action-button:active, .wrap button:active {
+button.action-button:active,
+.wrap button:active {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
   transform: translateY(3px);
@@ -187,13 +183,15 @@ button.action-button:active, .wrap button:active {
 }
 
 .msg.D {
-    border-left-color: var(--alert-color-base);;
-}
-.msg.D h4 {
-    color: var(--alert-color-base);;
+  border-left-color: var(--alert-color-base);
+  ;
 }
 
-/* Style de base pour tous les boutons */
+.msg.D h4 {
+  color: var(--alert-color-base);
+  ;
+}
+
 input {
   color: var(--primary-color-dark);
   border: 3px solid var(--primary-color-light);
@@ -204,15 +202,13 @@ input {
   font-weight: bold;
 }
 
-/* Effet au survol */
 input:hover {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
 }
 
-/* Effet au focus */
 input:focus {
-  color: var(--primary-color-dark); 
+  color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
 }
 
@@ -223,8 +219,34 @@ input:focus-visible {
   outline-style: none;
 }
 
+.chips {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.chip {
+  background: var(--primary-color-light);;
+  color: var(--primary-color-dark);
+  padding: 3px 6px;
+  margin-top: 6px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+
+.chip.dark {
+  background: var(--primary-color-dark);;
+  color: white;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
-  .tile h2 { font-size: 0.9rem; }
-  .tile p { font-size: 1.2rem; }
+  .tile h2 {
+    font-size: 0.9rem;
+  }
+
+  .tile p {
+    font-size: 1.2rem;
+  }
 }
