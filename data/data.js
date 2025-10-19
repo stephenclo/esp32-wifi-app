@@ -1,3 +1,5 @@
+
+// Check if connected and update the vue every 15s
 function subscribeIsConnected() {
   const intervalIsConnected = setInterval(async() => {
     let value = "loding...";
@@ -18,6 +20,7 @@ function subscribeIsConnected() {
     }, 15000);
 }
 
+// Get temperature values and update the vue
 async function drawTemperatureDataViz() {
   let value = '-°';
 

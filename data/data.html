@@ -14,6 +14,9 @@
   </header>
 
   <main class="main-content">
+    <button class="fab-button">
+      <span class="icon"><img src="images/refresh.svg" alt="refresh" class="picto"></span>
+    </button>
     <div class="tile">
       <h2>Température moyenne</h2>
       <h3 id="sensor-average-value">-°</h3>
@@ -29,7 +32,7 @@
         <div class="graph">
           <svg id="chart" viewBox="0 0 600 300"></svg>
         </div>
-        <button onclick="getSensorValues()"  class="action-button">refresh</button>
+        <button onclick="getSensorValues()"  class="action-button full-width">refresh</button>
     </div>
     <div class="tile">
       <h2>Humidité</h2>

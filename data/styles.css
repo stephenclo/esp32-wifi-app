@@ -40,9 +40,17 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.app-header .logo,
-.bottom-nav .picto {
+.app-header .logo
+{
+  /* base primary color */
   filter: brightness(0) saturate(100%) invert(63%) sepia(82%) saturate(1087%) hue-rotate(129deg) brightness(97%) contrast(101%);
+}
+
+.fab-button .picto
+{
+  /* dark primary color */
+  filter: brightness(0) saturate(100%) invert(4%) sepia(4%) saturate(3090%) hue-rotate(131deg) brightness(99%) contrast(92%);
+  vertical-align: middle;
 }
 
 .bottom-nav .nav-btn.selected .picto {
@@ -148,13 +156,27 @@ button {
   transition: all 0.3s ease;
 }
 
+button.full-width {
+  width: 100%;
+}
+
+button.fab-button {
+  position: absolute;
+  border-radius: 999px;
+  top: var(--nav-height);
+  right: 15px;
+  line-height: 2rem;
+}
+
 button.action-button:hover,
+button.fab-button:hover,
 .wrap button:hover {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
 }
 
 button.action-button:active,
+button.fab-button:active,
 .wrap button:active {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
