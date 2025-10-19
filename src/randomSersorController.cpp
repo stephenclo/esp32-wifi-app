@@ -20,8 +20,8 @@ float RandomSensorController::readSensorValue() {
   return random(200, 300) / 10.0;
 }
 
-// Main function to record last sensor values input on NVS
-// Keep 5 last sensor values
+// Record last sensor values input on NVS
+// Keep last 5 sensor values
 void RandomSensorController::saveLastSensorValue(float value) {
   nvs_handle_t storageHandle;
   esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READWRITE, &storageHandle);

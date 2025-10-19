@@ -15,8 +15,10 @@ class RandomSensorController {
         // Get history of all data
         std::array<float, 5> getSensorValues();
 
+        // Record last sensor values input on NVS (Keep last 5 sensor values)
+        void saveLastSensorValue(float value);
+
     private:
         unsigned long _lastActionTime;
-        void saveLastSensorValue(float value);
         float readSensorValue();
 };
