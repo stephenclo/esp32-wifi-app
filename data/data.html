@@ -4,15 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Project</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <link rel="stylesheet" href="light-theme.css" />
   <link rel="stylesheet" href="data.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
   <header class="app-header" id="app-header">
     <img src="images/memory.svg" alt="Logo" class="logo">
     <h1>My Project</h1>
   </header>
-
+  
   <main class="main-content">
     <button class="fab-button" onclick="getSensorValues()">
       <span class="icon"><img src="images/refresh.svg" alt="refresh" class="picto"></span>
@@ -69,6 +75,8 @@
       <span class="label">Info</span>
     </a>
   </nav>
+  <script src="common.js"></script>
   <script src="data.js"></script>
+  <link rel="stylesheet" href="styles.css" />
 </body>
 </html>

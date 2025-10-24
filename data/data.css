@@ -21,6 +21,10 @@
   stroke-width: 5;
 }
 
+.light-mode .graph .line {
+  stroke: var(--primary-color-base);
+}
+
 .graph .point {
   fill: var(--foreground-color);
   stroke: var(--foreground-color);

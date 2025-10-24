@@ -68,10 +68,10 @@ Then run `pio run --target uploadfs` to re-upload the web files.
 
 ## 📋 TODO
 
-* Web app style & components doc
-* ligth theme
-* use refresh interval settings
+* Web app styles & components doc
+* Use refresh interval settings
 * traduct label in web app
+* switch component
 
 ## 📝 License
 

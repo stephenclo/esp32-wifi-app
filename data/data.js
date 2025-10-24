@@ -25,6 +25,7 @@ async function drawTemperatureDataViz() {
   let averageValue = '-°';
 
   try {
+    /*
     const res = await fetch("/sensor-values");
     
     if (!res.ok) {
@@ -32,7 +33,8 @@ async function drawTemperatureDataViz() {
     }
 
     const values = await res.json();
-    
+    */
+    const values = [21.5, 53.2, 45.5, 23.6, 15.3];
     averageValue = ((values[0] + values[1] + values[2] + values[3] + values[4]) / 5);      
     document.getElementById('sensor-average-value').textContent = averageValue.toFixed(1) + '°C';
     

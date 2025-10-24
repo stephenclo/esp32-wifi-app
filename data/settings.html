@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Project</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <link rel="stylesheet" href="light-theme.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
   <header class="app-header" id="app-header">
@@ -20,7 +26,11 @@
     </div>
     <div class="tile">
       <h2>Interval de rafraichissement (s)</h2>
-      <input type="number" />
+      <input type="number" style="width: 70px;" />
+    </div>
+    <div class="tile">
+      <h2>Switch to <span id="theme-mode">ligth</span> theme</h2>
+      <button onclick="toggleLightTheme()" class="action-button">Switch theme</button>
     </div>
   </main>
 
@@ -42,12 +52,9 @@
       <span class="label">Info</span>
     </a>
   </nav>
-  <script>
-    function resetWifi() {
-      if (confirm("Es-tu sûr de vouloir réinitialiser les paramètres WiFi ?")) {
-        fetch("/reset-wifi");
-      }
-    }
-  </script>
+  <script src="common.js"></script>
+  <script src="settings.js"></script>
+  
+  <link rel="stylesheet" href="styles.css" />
 </body>
 </html>
