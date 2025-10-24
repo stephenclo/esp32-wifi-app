@@ -9,7 +9,7 @@ const char* NVS_KEY_5 = "TEMP_5";
 
 // 1 hour in milliseconds: 1 hour * 60 min * 60 sec * 1000 ms = 3,600,000 ms
 // Using 'UL' (unsigned long) is crucial to ensure proper handling of large numbers.
-const unsigned long READ_INTERVAL = 10000UL; 
+const unsigned long READ_INTERVAL = 1800000UL; 
 
 // Variable to store the last time the action was executed
 unsigned long _lastActionTime = 0;
