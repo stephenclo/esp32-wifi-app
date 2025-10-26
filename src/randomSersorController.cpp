@@ -67,6 +67,8 @@ unsigned long RandomSensorController::getRefreshInterval() {
   
   if (err != ESP_OK) {
     Serial.printf("NVS Open Error: %s\n", esp_err_to_name(err));
+    
+    nvs_close(storageHandle); 
     return refrehInterval;
   }
   
@@ -75,6 +77,8 @@ unsigned long RandomSensorController::getRefreshInterval() {
 
   if (err != ESP_OK) {
     Serial.printf("NVS Read Error: %s\n", esp_err_to_name(err));
+
+    nvs_close(storageHandle); 
     return refrehInterval;
   }
 

@@ -40,7 +40,4 @@ void loop() {
   webServerController.handleClient();
 
   randomSensorController.readSensorLoop();
-  
-  // Wait 1 second before next reading
-  delay(1000);
 }

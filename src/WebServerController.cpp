@@ -110,7 +110,7 @@ void WebServerController::begin() {
   });
 
   _server.begin();
-  Serial.println("✅ Web Server started !");
+  Serial.println("✅ Web Server started");
 }
 
 // Must be called regularly in loop()
