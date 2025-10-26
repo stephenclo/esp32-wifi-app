@@ -38,18 +38,23 @@ async function getRefreshInterval() {
   }
 }
 
-async function setRefreshInterval() {
-  const value = document.getElementById("refreh-interval-input").value;
+async function setRefreshInterval(interval = null) {
+  if (!interval) {
+    interval = document.getElementById("refreh-interval-input").value;
+  }
+
   const res = await fetch('/refresh-interval', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: value
-        });
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: interval
+  });
   
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
+  } else {
+    document.getElementById("refreh-interval-input").value = interval; 
   }
 }
 

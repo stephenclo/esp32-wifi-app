@@ -27,11 +27,12 @@
     <div class="tile">
       <h2>Refresh interval (ms)</h2>
       <input id="refreh-interval-input" type="number" style="width: 80px;" onblur="setRefreshInterval()" />
-      <p>1 hour = 3,600,000 ms</p>
-      <p>1/2 hour = 1,800,000 ms</p>
-      <p>15 min = 900,000 ms</p>
-      <p>1 min = 60,000 ms</p>
-      <p>1 s = 1,000 ms</p>
+      
+      <button onclick="setRefreshInterval(3600000)" class="action-button">1 hour = 3,600,000 ms</button>
+      <button onclick="setRefreshInterval(1800000)" class="action-button">1/2 hour = 1,800,000 ms</button>
+      <button onclick="setRefreshInterval(900000)" class="action-button">15 min = 900,000 ms</button>
+      <button onclick="setRefreshInterval(60000)" class="action-button">1 min = 60,000 ms</button>
+      <button onclick="setRefreshInterval(1000)" class="action-button">1 s = 1,000 ms</button>
     </div>
     <div class="tile">
       <h2>Switch to <span id="theme-mode">ligth</span> theme</h2>

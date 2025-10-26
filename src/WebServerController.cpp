@@ -6,8 +6,6 @@ WebServerController::WebServerController(int port)
   
 // Serve web app files through the web server
 void WebServerController::handleFile(String path) {
-  
-  Serial.println("handleFile" + path);
   if (path.endsWith("/")) path += "index.html"; // default page
 
   String contentType = "text/plain";
@@ -100,8 +98,10 @@ void WebServerController::begin() {
   // reset-wifi route
   _server.on("/sensor-values", std::bind(&WebServerController::handleSensorValues, this));
 
+  // POST refresh-interval route
   _server.on("/refresh-interval", HTTP_POST, std::bind(&WebServerController::handleSetRefreshInterval, this));
 
+  // GET refresh-interval route
   _server.on("/refresh-interval", HTTP_GET, std::bind(&WebServerController::handleGetRefreshInterval, this));
 
   // Generic route
