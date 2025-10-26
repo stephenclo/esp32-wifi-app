@@ -103,7 +103,7 @@ void RandomSensorController::setRefreshInterval(unsigned long value) {
     err = nvs_commit(storageHandle);
     if (err == ESP_OK) {
       refrehInterval = value;
-      Serial.printf("New refresh interval %s recorded.\n", String(refrehInterval));
+      Serial.printf("New refresh interval recorded : %s\n", String(refrehInterval));
     } else {
       Serial.printf("NVS Error %s\n", esp_err_to_name(err));
     }

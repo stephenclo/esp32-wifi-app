@@ -60,4 +60,3 @@ async function setRefreshInterval(interval = null) {
 
 setSwicthThemeText();
 getRefreshInterval();
-
