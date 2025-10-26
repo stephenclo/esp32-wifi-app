@@ -31,7 +31,8 @@ async function drawTemperatureDataViz() {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
 
-    const values = await res.json();
+    let values = await res.json();
+    values = values.reverse();
 
     averageValue = ((values[0] + values[1] + values[2] + values[3] + values[4]) / 5);      
     document.getElementById('sensor-average-value').textContent = averageValue.toFixed(1) + '°C';
@@ -93,6 +94,7 @@ async function drawTemperatureDataViz() {
 
     svg.innerHTML = line + dots + averageLine;
   } catch (err) {
+    console.error(err);
     document.getElementById('sensor-average-value').textContent = 'error';
   }
 }

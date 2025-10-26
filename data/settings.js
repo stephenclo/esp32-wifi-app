@@ -39,6 +39,8 @@ async function getRefreshInterval() {
 }
 
 async function setRefreshInterval(interval = null) {
+  document.getElementById("refreh-interval-input").disabled = true;
+  
   if (!interval) {
     interval = document.getElementById("refreh-interval-input").value;
   }
@@ -56,6 +58,8 @@ async function setRefreshInterval(interval = null) {
   } else {
     document.getElementById("refreh-interval-input").value = interval; 
   }
+  
+  document.getElementById("refreh-interval-input").disabled = false;
 }
 
 setSwicthThemeText();

@@ -237,6 +237,11 @@ input {
   font-weight: bold;
 }
 
+input:disabled {
+  background-color: #bfbfbf;
+  border: 3px solid #999999;
+}
+
 input:hover {
   color: var(--primary-color-dark);
   border-color: var(--primary-color-dark);
