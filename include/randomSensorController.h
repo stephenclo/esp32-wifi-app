@@ -9,6 +9,9 @@
 
 class RandomSensorController {
     public:
+        // Must be called in begin()    
+        void begin();
+
         // Must be called in loop()
         void readSensorLoop();
 
@@ -18,6 +21,9 @@ class RandomSensorController {
         // Record last sensor values input on NVS (Keep last 5 sensor values)
         void saveLastSensorValue(float value);
 
+        unsigned long getRefreshInterval();
+
+        void setRefreshInterval(unsigned long value);
     private:
         unsigned long _lastActionTime;
         float readSensorValue();

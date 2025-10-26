@@ -28,8 +28,11 @@ void setup() {
 
   // Start web server controller
   webServerController.begin();
+
+  // Start random sensor controller
+  randomSensorController.begin();
   
-  Serial.print("✅ Project started");
+  Serial.println("✅ Project started");
 }
 
 void loop() {

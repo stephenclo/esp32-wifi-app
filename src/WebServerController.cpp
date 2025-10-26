@@ -40,6 +40,31 @@ void WebServerController::handleIsConnected() {
   _server.send(200, "text/html", _wiFiController.isConnected() ? "true" : "false");
 }
 
+// Serve POST to set refresh interval value
+void WebServerController::handleSetRefreshInterval() {
+  if (_server.hasArg("plain")) {
+    String body = _server.arg("plain");
+    char* endPtr;
+
+    unsigned long value = strtoul(body.c_str(), &endPtr, 10);
+ 
+    if (*endPtr != '\0') {
+      Serial.println("Invalid number!");
+    } else {
+      _randomSensorController.setRefreshInterval(value);
+    }
+    _server.send(200, "text/html");
+  } else {
+    _server.send(400, "text/html");
+  }
+}
+        
+// Serve get refresh interval value 
+void WebServerController::handleGetRefreshInterval(){
+  unsigned long refresgInterval = _randomSensorController.getRefreshInterval();
+  _server.send(200, "text/html", String(refresgInterval));
+}
+
 void WebServerController::handleSensorValues() {
     // Get vector of 5 last sensor values
     std::array<float, 5> data = _randomSensorController.getSensorValues();
@@ -64,7 +89,7 @@ void WebServerController::handleSensorValues() {
 
 // Start the server and configure the routes
 void WebServerController::begin() {
-  Serial.println("🚀 Initialisation du serveur web...");
+  Serial.println("🚀 Server Web initialisation...");
 
   // is-connected route
   _server.on("/is-connected", std::bind(&WebServerController::handleIsConnected, this));
@@ -75,13 +100,17 @@ void WebServerController::begin() {
   // reset-wifi route
   _server.on("/sensor-values", std::bind(&WebServerController::handleSensorValues, this));
 
+  _server.on("/refresh-interval", HTTP_POST, std::bind(&WebServerController::handleSetRefreshInterval, this));
+
+  _server.on("/refresh-interval", HTTP_GET, std::bind(&WebServerController::handleGetRefreshInterval, this));
+
   // Generic route
   _server.onNotFound([this]() {
     this->handleFile(this->_server.uri());
   });
 
   _server.begin();
-  Serial.println("✅ Serveur web démarré !");
+  Serial.println("✅ Web Server started !");
 }
 
 // Must be called regularly in loop()

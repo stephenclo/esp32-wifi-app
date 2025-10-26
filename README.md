@@ -70,7 +70,6 @@ Then run `pio run --target uploadfs` to re-upload the web files.
 
 * Web app styles & components doc
 * Use refresh interval settings
-* traduct label in web app
 * switch component
 
 ## 📝 License

@@ -37,4 +37,10 @@ class WebServerController {
 
         // Serve sensor values history 
         void handleSensorValues();
+        
+        // Serve set refresh interval value 
+        void handleSetRefreshInterval();
+        
+        // Serve get refresh interval value 
+        void handleGetRefreshInterval();
 };

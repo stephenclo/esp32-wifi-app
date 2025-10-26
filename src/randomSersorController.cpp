@@ -6,10 +6,11 @@ const char* NVS_KEY_2 = "TEMP_2";
 const char* NVS_KEY_3 = "TEMP_3";
 const char* NVS_KEY_4 = "TEMP_4";
 const char* NVS_KEY_5 = "TEMP_5";
+const char* NVS_KEY_REFRESH_INTERVAL = "REFRESH";
 
 // 1 hour in milliseconds: 1 hour * 60 min * 60 sec * 1000 ms = 3,600,000 ms
 // Using 'UL' (unsigned long) is crucial to ensure proper handling of large numbers.
-const unsigned long READ_INTERVAL = 1800000UL; 
+unsigned long refrehInterval = 1800000UL; 
 
 // Variable to store the last time the action was executed
 unsigned long _lastActionTime = 0;
@@ -27,7 +28,7 @@ void RandomSensorController::saveLastSensorValue(float value) {
   esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READWRITE, &storageHandle);
 
   if (err != ESP_OK) {
-    Serial.printf("Erreur d'ouverture NVS: %s\n", esp_err_to_name(err));
+    Serial.printf("NVS open error: %s\n", esp_err_to_name(err));
     return;
   }
 
@@ -53,8 +54,57 @@ void RandomSensorController::saveLastSensorValue(float value) {
     // Commit the changes to save them in NVS
     err = nvs_commit(storageHandle);
     if (err == ESP_OK) {
-      Serial.printf("Valeur %.2f enregistree avec succes.\n", value);
+      Serial.printf("Value %.2f recorded.\n", value);
     }
+  }
+
+  nvs_close(storageHandle);
+}
+
+unsigned long RandomSensorController::getRefreshInterval() {
+  nvs_handle_t storageHandle;
+  esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READONLY, &storageHandle);
+  
+  if (err != ESP_OK) {
+    Serial.printf("NVS Open Error: %s\n", esp_err_to_name(err));
+    return refrehInterval;
+  }
+  
+  uint32_t storedValue = refrehInterval;
+  nvs_get_u32(storageHandle, NVS_KEY_REFRESH_INTERVAL, &storedValue);
+
+  if (err != ESP_OK) {
+    Serial.printf("NVS Read Error: %s\n", esp_err_to_name(err));
+    return refrehInterval;
+  }
+
+  nvs_close(storageHandle); 
+  
+  return (unsigned long)storedValue;
+}
+
+void RandomSensorController::setRefreshInterval(unsigned long value) {  
+  nvs_handle_t storageHandle;
+  esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READWRITE, &storageHandle);
+
+  if (err != ESP_OK) {
+    Serial.printf("NVS Open error: %s\n", esp_err_to_name(err));
+    return;
+  }
+
+  err = nvs_set_u32(storageHandle, NVS_KEY_REFRESH_INTERVAL, (uint32_t)value);
+
+  if (err == ESP_OK) {
+    // Commit the changes to save them in NVS
+    err = nvs_commit(storageHandle);
+    if (err == ESP_OK) {
+      refrehInterval = value;
+      Serial.printf("New refresh interval %s recorded.\n", String(refrehInterval));
+    } else {
+      Serial.printf("NVS Error %s\n", esp_err_to_name(err));
+    }
+  } else {
+    Serial.printf("NVS Error %s\n", esp_err_to_name(err));
   }
 
   nvs_close(storageHandle);
@@ -70,8 +120,13 @@ std::array<float, 5> RandomSensorController::getSensorValues() {
   std::array<float, 5> temperatures;
 
   nvs_handle_t storageHandle;
-  nvs_open(NVS_NAMESPACE, NVS_READONLY, &storageHandle);
+  esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READONLY, &storageHandle);
   
+  if (err != ESP_OK) {
+    Serial.printf("NVS Open Error: %s\n", esp_err_to_name(err));
+    return temperatures;
+  }
+
   nvs_get_i32(storageHandle, NVS_KEY_1, &value1);
   nvs_get_i32(storageHandle, NVS_KEY_2, &value2);
   nvs_get_i32(storageHandle, NVS_KEY_3, &value3);
@@ -89,11 +144,15 @@ std::array<float, 5> RandomSensorController::getSensorValues() {
   return temperatures; 
 }
 
+void RandomSensorController::begin() {
+  refrehInterval = getRefreshInterval();  
+}
+
 void RandomSensorController::readSensorLoop() {
   unsigned long now = millis();
 
   // Check if the time since the last action is >= the playback interval
-  if (now - _lastActionTime >= READ_INTERVAL) {
+  if (now - _lastActionTime >= refrehInterval) {
     _lastActionTime = now;
 
     // Reads sensor data

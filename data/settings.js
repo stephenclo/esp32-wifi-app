@@ -24,4 +24,35 @@ function setSwicthThemeText() {
     document.getElementById('theme-mode').textContent = 'ligth';
   }
 }
+
+async function getRefreshInterval() {
+  const res = await fetch('/refresh-interval');
+  
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  const value = await res.json();
+  if (value && JSON.parse(value)) {
+    document.getElementById('refreh-interval-input').value = value;    
+  }
+}
+
+async function setRefreshInterval() {
+  const value = document.getElementById("refreh-interval-input").value;
+  const res = await fetch('/refresh-interval', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: value
+        });
+  
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+}
+
 setSwicthThemeText();
+getRefreshInterval();
+
