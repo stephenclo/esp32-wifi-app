@@ -68,9 +68,9 @@ Then run `pio run --target uploadfs` to re-upload the web files.
 
 ## 📋 TODO
 
-* Web app styles & components doc
-* Use refresh interval settings
-* switch component
+* Improve Web app styles & components doc
+* Styles chunks : Create one css file per component (form, layout, ...)
+* Document screen creation, navigation, controllers...
 
 ## 📝 License
 

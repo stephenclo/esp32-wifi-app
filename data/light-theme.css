@@ -70,6 +70,15 @@ body.light-mode {
   border-color: var(--primary-color-dark);
 }
 
-.light-mode input {
+.light-mode input, .light-mode select {
   border: 3px solid var(--primary-color-base);
+}
+
+.light-mode .chip.dark {
+  color: var(--primary-color-light);
+}
+
+.light-mode .checkbox-container .checkmark,
+.light-mode .radio-container .checkmark {  
+  background-color: var(--primary-color-light);
 }
