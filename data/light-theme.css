@@ -13,12 +13,13 @@ body.light-mode {
   --filter-primary-color-light: brightness(0) saturate(100%) invert(91%) sepia(8%) saturate(1427%) hue-rotate(298deg) brightness(101%) contrast(102%);
   --filter-primary-color-dark: brightness(0) saturate(100%) invert(12%) sepia(83%) saturate(1406%) hue-rotate(300deg) brightness(97%) contrast(103%);
 
+  --action-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
   background-color: var(--primary-color-light);
 }
 
 .light-mode .app-header {
   background-color: var(--primary-color-light);
-  box-shadow: 0 2px 4px var(--primary-color-light);
   color: var(--primary-color-dark);
 }
 
@@ -51,7 +52,6 @@ body.light-mode {
 
 .light-mode .bottom-nav {
   background-color: var(--primary-color-light);
-  box-shadow: 0 -2px 6px var(--primary-color-light);
 }
 
 .light-mode .nav-btn {
@@ -81,4 +81,14 @@ body.light-mode {
 .light-mode .checkbox-container .checkmark,
 .light-mode .radio-container .checkmark {  
   background-color: var(--primary-color-light);
+}
+
+.light-mode a:focus-visible,
+.light-mode button:focus-visible,
+.light-mode input:focus-visible, 
+.light-mode select:focus-visible,
+.light-mode input:focus-visible ~ .checkmark,
+.light-mode input:focus-visible ~ .slider
+{
+  outline: 2px dashed var(--primary-color-base);
 }
