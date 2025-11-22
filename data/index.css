@@ -1,0 +1,34 @@
+#forecast-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 3px;
+  margin-top: 10px;
+}
+.hour-card {
+  padding: 3px 3px;
+  text-align: center;
+}
+.hour-card:last-child {
+  border-right: none;
+}
+.hour-card img {
+  width: 95%;
+  filter: drop-shadow(var(--img-shadow));
+}
+.time { 
+  font-size: 40%; 
+  margin-bottom: 3px;
+}
+.temp { 
+  font-size: 50%;
+}
+
+.img-weather-now {
+  width: 50px;
+  filter: drop-shadow(var(--img-shadow));
+  margin: 5px;
+}
+
+#error-message { 
+  text-align: center; margin-top: 5px; font-weight: bold;
+}

@@ -1,0 +1,61 @@
+.graph svg {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.graph .axis {
+  stroke: var(--foreground-color);
+  stroke-width: 1.5;
+}
+
+.graph .label {
+  fill: var(--foreground-color);
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.graph label.warning {
+  color: var(--warning-color-light);
+  fill: var(--warning-color-light);
+}
+
+.graph .label.alert {
+  color: var(--alert-color-light);
+  fill: var(--alert-color-light);
+}
+
+.light-mode .graph label.warning {
+  color: var(--warning-color-base);
+  fill: var(--warning-color-base);
+}
+
+.light-mode .graph .label.alert {
+  color: var(--alert-color-base);
+  fill: var(--alert-color-base);
+}
+
+.graph .line {
+  fill: none;
+  stroke: var(--primary-color-light);
+  stroke-width: 5;
+}
+
+.light-mode .graph .line {
+  stroke: var(--primary-color-base);
+}
+
+.graph .line.alert {
+  stroke: var(--alert-color-light);
+}
+
+.light-mode .graph .line.alert {
+  stroke: var(--alert-color-base);
+}
+
+.graph .point {
+  fill: var(--foreground-color);
+  stroke: var(--foreground-color);
+  stroke-width: 1.5;
+  r: 4;
+}
